@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -7,6 +7,9 @@ const Register = () => {
   const [password, setPassword] = useState("");
 
 //sign up function
+//👇🏻 React Router's useNavigate hook
+const navigate = useNavigate();
+
 const signUp = () => {
     fetch("http://localhost:4000/api/register", {
         method: "POST",
@@ -21,7 +24,12 @@ const signUp = () => {
     })
         .then((res) => res.json())
         .then((data) => {
-            console.log(data);
+            if (data.error_message) {
+                alert(data.error_message);
+            } else {
+                alert("Account created successfully!");
+                navigate("/");
+            }
         })
         .catch((err) => console.error(err));
 };
