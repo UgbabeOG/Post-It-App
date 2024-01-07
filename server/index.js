@@ -65,9 +65,25 @@ app.post("/api/login", (req, res) => {
   });
 });
 //threads
-app.post("/api/create/thread", async (req, res) => {
-    const { thread, userId } = req.body;
-    const threadId = generateID();
+//👇🏻 holds all the posts created
+const threadList = [];
 
-    console.log({ thread, userId, threadId });
+app.post("/api/create/thread", async (req, res) => {
+const { thread, userId } = req.body;
+const threadId = generateID();
+
+    //👇🏻 add post details to the array
+    threadList.unshift({
+        id: threadId,
+        title: thread,
+        userId,
+        replies: [],
+        likes: [],
+    });
+
+    //👇🏻 Returns a response containing the posts
+    res.json({
+        message: "Thread created successfully!",
+        threads: threadList,
+    });
 });
