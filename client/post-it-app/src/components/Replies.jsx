@@ -5,7 +5,6 @@ const Replies = () => {
 
     const handleSubmitReply = (e) => {
         e.preventDefault();
-        console.log({ reply });
         setReply("");
     };
 

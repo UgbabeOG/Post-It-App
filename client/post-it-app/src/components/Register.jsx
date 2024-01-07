@@ -8,7 +8,6 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ username, email, password });
     setEmail("");
     setUsername("");
     setPassword("");

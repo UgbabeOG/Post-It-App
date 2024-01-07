@@ -6,7 +6,6 @@ const Home = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log({ thread });
         setThread("");
     };
     return (
