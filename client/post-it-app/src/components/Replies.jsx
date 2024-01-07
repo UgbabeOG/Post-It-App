@@ -28,11 +28,31 @@ const Replies = () => {
     };
     fetchReplies();
   }, [id]);
-
+  const addReply = () => {
+    fetch("http://localhost:4000/api/create/reply", {
+      method: "POST",
+      body: JSON.stringify({
+        id,
+        userId: localStorage.getItem("_id"),
+        reply,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        alert(data.message);
+        navigate("/dashboard");
+      })
+      .catch((err) => console.error(err));
+  };
   //👇🏻 This function when triggered when we add a new reply
+
   const handleSubmitReply = (e) => {
     e.preventDefault();
-    console.log({ reply });
+    //👇🏻 calls the function
+    addReply();
     setReply("");
   };
 
