@@ -89,7 +89,28 @@ app.post("/api/create/thread", async (req, res) => {
 });
 //
 app.get("/api/all/threads", (req, res) => {
+  res.json({
+    threads: threadList,
+  });
+});//threads like
+app.post("/api/thread/like", (req, res) => {
+    //👇🏻 accepts the post id and the user id
+    const { threadId, userId } = req.body;
+    //👇🏻 gets the reacted post
+    const result = threadList.filter((thread) => thread.id === threadId);
+    //👇🏻 gets the likes property
+    const threadLikes = result[0].likes;
+    //👇🏻 authenticates the reaction
+    const authenticateReaction = threadLikes.filter((user) => user === userId);
+    //👇🏻 adds the users to the likes array
+    if (authenticateReaction.length === 0) {
+        threadLikes.push(userId);
+        return res.json({
+            message: "You've reacted to the post!",
+        });
+    }
+    //👇🏻 Returns an error user has reacted to the post earlier
     res.json({
-        threads: threadList,
+        error_message: "You can only react once!",
     });
 });
