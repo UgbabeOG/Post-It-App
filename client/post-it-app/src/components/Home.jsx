@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Nav from "./Nav";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [thread, setThread] = useState("");
   const [threadList, setThreadList] = useState([]);
+  const navigate = useNavigate();
   const createThread = () => {
     fetch("http://localhost:4000/api/create/thread", {
       method: "POST",
@@ -22,6 +24,19 @@ const Home = () => {
       })
       .catch((err) => console.error(err));
   };
+  useEffect(() => {
+    const checkUser = () => {
+      if (!localStorage.getItem("_id")) {
+        Navigate("/");
+      } else {
+        fetch("http://localhost:4000/api/all/threads")
+          .then((res) => res.json())
+          .then((data) => setThreadList(data.threads))
+          .catch((err) => console.error(err));
+      }
+    };
+    checkUser();
+  }, [navigate]);
   const handleSubmit = (e) => {
     e.preventDefault();
     createThread();
