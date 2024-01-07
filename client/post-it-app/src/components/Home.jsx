@@ -3,12 +3,32 @@ import Nav from "./Nav";
 
 const Home = () => {
     const [thread, setThread] = useState("");
-
+    const createThread = () => {
+        fetch("http://localhost:4000/api/create/thread", {
+            method: "POST",
+            body: JSON.stringify({
+                thread,
+                userId: localStorage.getItem("_id"),
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((err) => console.error(err));
+    };
+    
+    //👇🏻 Triggered when the form is submitted
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log({ thread });
+        //👇🏻 Calls the function
+        createThread();
         setThread("");
     };
+   
     return (
         <>
             <Nav />
