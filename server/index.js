@@ -19,7 +19,7 @@ app.listen(PORT, () => {
 });
 
 
-//👇🏻 holds all the existing users
+//👇🏻 holds all the existing users this should be converted to database
 const users = [];
 //👇🏻 generates a random string as ID
 const generateID = () => Math.random().toString(36).substring(2, 10);
