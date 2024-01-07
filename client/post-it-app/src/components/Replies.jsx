@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 const Replies = () => {
   const [replyList, setReplyList] = useState([]);
   const [reply, setReply] = useState("");
   const [title, setTitle] = useState("");
-//   const navigate = useNavigate();
+  const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
@@ -55,8 +55,8 @@ const Replies = () => {
       </form>
 
       <div className="thread__container">
-        {replyList.map((reply) => (
-          <div className="thread__item">
+        {replyList.map((reply, i) => (
+          <div className="thread__item" key={i}>
             <p>{reply.text}</p>
             <div className="react__container">
               <p style={{ opacity: "0.5" }}>by {reply.name}</p>

@@ -8,7 +8,7 @@ const Home = () => {
   const [threadList, setThreadList] = useState([]);
   const navigate = useNavigate();
   const createThread = () => {
-    fetch("http://localhost:5174/api/create/thread", {
+    fetch("http://localhost:4000/api/create/thread", {
       method: "POST",
       body: JSON.stringify({
         thread,
