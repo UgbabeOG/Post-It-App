@@ -116,13 +116,31 @@ app.post("/api/thread/like", (req, res) => {
 });
 //replies
 app.post("/api/thread/replies", (req, res) => {
-    //👇🏻 The post ID
-    const { id } = req.body;
-    //👇🏻 searches for the post
-    const result = threadList.filter((thread) => thread.id === id);
-    //👇🏻 return the title and replies
-    res.json({
-        replies: result[0].replies,
-        title: result[0].title,
-    });
+  //👇🏻 The post ID
+  const { id } = req.body;
+  //👇🏻 searches for the post
+  const result = threadList.filter((thread) => thread.id === id);
+  //👇🏻 return the title and replies
+  res.json({
+    replies: result[0].replies,
+    title: result[0].title,
+  });
+});
+app.post("/api/create/reply", async (req, res) => {
+  //👇🏻 accepts the post id, user id, and reply
+  const { id, userId, reply } = req.body;
+  //👇🏻 search for the exact post that was replied to
+  const result = threadList.filter((thread) => thread.id === id);
+  //👇🏻 search for the user via its id
+  const user = users.filter((user) => user.id === userId);
+  //👇🏻 saves the user name and reply
+  result[0].replies.unshift({
+    userId: user[0].id,
+    name: user[0].username,
+    text: reply,
+  });
+
+  res.json({
+    message: "Response added successfully!",
+  });
 });

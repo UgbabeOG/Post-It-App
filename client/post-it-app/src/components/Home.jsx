@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Nav from "./Nav";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 const Home = () => {
 
@@ -28,7 +28,7 @@ const Home = () => {
   useEffect(() => {
     const checkUser = () => {
       if (!localStorage.getItem("_id")) {
-        Navigate("/");
+        navigate("/");
       } else {
         fetch("http://localhost:4000/api/all/threads")
           .then((res) => res.json())
