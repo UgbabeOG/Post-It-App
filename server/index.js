@@ -47,20 +47,27 @@ app.post("/api/register", async (req, res) => {
 });
 //login
 app.post("/api/login", (req, res) => {
-    const { email, password } = req.body;
-    //👇🏻 checks if the user exists
-    let result = users.filter(
-        (user) => user.email === email && user.password === password
-    );
-    //👇🏻 if the user doesn't exist
-    if (result.length !== 1) {
-        return res.json({
-            error_message: "Incorrect credentials",
-        });
-    }
-    //👇🏻 Returns the id if successfuly logged in
-    res.json({
-        message: "Login successfully",
-        id: result[0].id,
+  const { email, password } = req.body;
+  //👇🏻 checks if the user exists
+  let result = users.filter(
+    (user) => user.email === email && user.password === password
+  );
+  //👇🏻 if the user doesn't exist
+  if (result.length !== 1) {
+    return res.json({
+      error_message: "Incorrect credentials",
     });
+  }
+  //👇🏻 Returns the id if successfuly logged in
+  res.json({
+    message: "Login successfully",
+    id: result[0].id,
+  });
+});
+//threads
+app.post("/api/create/thread", async (req, res) => {
+    const { thread, userId } = req.body;
+    const threadId = generateID();
+
+    console.log({ thread, userId, threadId });
 });
