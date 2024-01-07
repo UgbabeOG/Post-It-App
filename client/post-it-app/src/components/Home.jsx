@@ -3,6 +3,7 @@ import Nav from "./Nav";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const Home = () => {
+
   const [thread, setThread] = useState("");
   const [threadList, setThreadList] = useState([]);
   const navigate = useNavigate();
@@ -50,7 +51,6 @@ const Home = () => {
         <form className="homeForm" onSubmit={handleSubmit}>
           {/*--form UI elements--*/}
         </form>
-
         <div className="thread__container">
           {threadList.map((thread) => (
             <div className="thread__item" key={thread.id}>

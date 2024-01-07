@@ -65,9 +65,64 @@ app.post("/api/login", (req, res) => {
   });
 });
 //threads
-app.post("/api/create/thread", async (req, res) => {
-    const { thread, userId } = req.body;
-    const threadId = generateID();
+//👇🏻 holds all the posts created
+const threadList = [];
 
-    console.log({ thread, userId, threadId });
+app.post("/api/create/thread", async (req, res) => {
+  const { thread, userId } = req.body;
+  const threadId = generateID();
+
+  //👇🏻 add post details to the array
+  threadList.unshift({
+    id: threadId,
+    title: thread,
+    userId,
+    replies: [],
+    likes: [],
+  });
+
+  //👇🏻 Returns a response containing the posts
+  res.json({
+    message: "Thread created successfully!",
+    threads: threadList,
+  });
+});
+//
+app.get("/api/all/threads", (req, res) => {
+  res.json({
+    threads: threadList,
+  });
+}); //threads like
+app.post("/api/thread/like", (req, res) => {
+  //👇🏻 accepts the post id and the user id
+  const { threadId, userId } = req.body;
+  //👇🏻 gets the reacted post
+  const result = threadList.filter((thread) => thread.id === threadId);
+  //👇🏻 gets the likes property
+  const threadLikes = result[0].likes;
+  //👇🏻 authenticates the reaction
+  const authenticateReaction = threadLikes.filter((user) => user === userId);
+  //👇🏻 adds the users to the likes array
+  if (authenticateReaction.length === 0) {
+    threadLikes.push(userId);
+    return res.json({
+      message: "You've reacted to the post!",
+    });
+  }
+  //👇🏻 Returns an error user has reacted to the post earlier
+  res.json({
+    error_message: "You can only react once!",
+  });
+});
+//replies
+app.post("/api/thread/replies", (req, res) => {
+    //👇🏻 The post ID
+    const { id } = req.body;
+    //👇🏻 searches for the post
+    const result = threadList.filter((thread) => thread.id === id);
+    //👇🏻 return the title and replies
+    res.json({
+        replies: result[0].replies,
+        title: result[0].title,
+    });
 });
