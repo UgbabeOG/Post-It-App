@@ -10,7 +10,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const loginUser = () => {
-    fetch("http://localhost:4000/api/login", {
+    fetch("http://localhost:5174/api/login", {
       method: "POST",
       body: JSON.stringify({
         email,

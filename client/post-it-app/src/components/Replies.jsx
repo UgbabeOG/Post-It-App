@@ -5,7 +5,7 @@ const Replies = () => {
   const [replyList, setReplyList] = useState([]);
   const [reply, setReply] = useState("");
   const [title, setTitle] = useState("");
-  const navigate = useNavigate();
+//   const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
