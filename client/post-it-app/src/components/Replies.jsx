@@ -1,11 +1,10 @@
-import  { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const Replies = () => {
   const [replyList, setReplyList] = useState([]);
   const [reply, setReply] = useState("");
   const [title, setTitle] = useState("");
-  const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
