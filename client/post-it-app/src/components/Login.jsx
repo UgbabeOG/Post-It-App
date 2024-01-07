@@ -34,6 +34,7 @@ const Login = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    loginUser();
     setEmail("");
     setPassword("");
   };
